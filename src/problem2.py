@@ -2,10 +2,11 @@
 PRACTICE Test 1, problem 2.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Pattie Giraldo.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
+
 
 ########################################################################
 # Students:
@@ -110,6 +111,20 @@ def problem2a(circle, rectangle, window):
     #    DIFFICULTY:      6
     #    TIME ESTIMATE:   10 to 15 minutes.
     # ------------------------------------------------------------------
+
+    circle.attach_to(window)
+    rectangle.attach_to(window)
+    center = rectangle.get_center()
+    rad1 = rectangle.get_height() / 2
+    rad2 = rectangle.get_width() / 2
+
+    start = rg.Point(center.x + rad2, center.y - rad1)
+    end = rg.Point(center.x - rad2, center.y + rad1)
+
+    line = rg.Line(start, end)
+    line.attach_to(window)
+    window.render(0.1)
+
 
 def run_test_problem2b():
     """ Tests the  problem2b   function. """
