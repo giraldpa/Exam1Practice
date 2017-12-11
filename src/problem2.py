@@ -103,7 +103,7 @@ def problem2a(circle, rectangle, window):
       :type window:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -114,16 +114,24 @@ def problem2a(circle, rectangle, window):
 
     circle.attach_to(window)
     rectangle.attach_to(window)
-    center = rectangle.get_center()
-    rad1 = rectangle.get_height() / 2
-    rad2 = rectangle.get_width() / 2
 
-    start = rg.Point(center.x + rad2, center.y - rad1)
-    end = rg.Point(center.x - rad2, center.y + rad1)
+    start = rectangle._upper_right_corner
+    end = rectangle._lower_left_corner
+    window.render()
+    window.continue_on_mouse_click()
 
     line = rg.Line(start, end)
     line.attach_to(window)
+    line.arrow = 'last'
     window.render(0.1)
+    window.continue_on_mouse_click()
+
+    fillcolor = rectangle.outline_color
+    circle.fill_color = fillcolor
+    circle.attach_to(window)
+    window.render(0.1)
+    window.continue_on_mouse_click()
+    circle.attach_to(window)
 
 
 def run_test_problem2b():
@@ -158,7 +166,7 @@ def run_test_problem2b():
     window.close_on_mouse_click()
 
 
-def problem2b(rect, n, delta, win):
+def problem2b(rectangle, n, delta, window):
     """
     See   problem2b_picture.pdf   in this project for pictures
     that may help you better understand the following specification:
@@ -188,7 +196,7 @@ def problem2b(rect, n, delta, win):
       :type win:    rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #          Tests have been written for you (above).
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -196,6 +204,22 @@ def problem2b(rect, n, delta, win):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:   15 to 25 minutes.
     # ------------------------------------------------------------------
+
+    upleftcorner = rectangle.get_upper_left_corner()
+    lowrightcorner = rectangle.get_lower_right_corner()
+
+    rectangle.attach_to(window)
+
+    for k in range(n - 1):
+        upleftcorner.x = upleftcorner.x - delta
+        upleftcorner.y = upleftcorner.y - delta
+        lowrightcorner.x = lowrightcorner.x + delta
+        lowrightcorner.y = lowrightcorner.y + delta
+        rectangle1 = rg.Rectangle(rg.Point(upleftcorner.x, upleftcorner.y),
+                                  rg.Point(lowrightcorner.x, lowrightcorner.y))
+        rectangle1.attach_to(window)
+
+    window.render()
 
 
 # ----------------------------------------------------------------------
